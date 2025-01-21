@@ -1,28 +1,26 @@
-package edu.kh.com.jpadao.dao;
+package edu.kh.com.jpadao.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class KHTProduct {
+public class KHTBook {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
-    private String name;
-
+    private String title;
     @Column(nullable = false)
-    private double price;
-
+    private String author;
     @Column(nullable = false)
-    private String description;
-
+    private String publisher;
     @Column(nullable = false)
-    private int stock;
+    private String genre;
 }

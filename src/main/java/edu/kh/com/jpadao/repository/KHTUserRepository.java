@@ -1,6 +1,6 @@
 package edu.kh.com.jpadao.repository;
 
-import edu.kh.com.jpadao.dao.KHTUser;
+import edu.kh.com.jpadao.entity.KHTUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +11,17 @@ import org.springframework.stereotype.Repository;
 * 회원저장 = save
 * 삭제 = delete
 * 전체조회 = findAll
+*
+*
+* DAO -> 축소해서 작성한게 Repository
+* DAO -> 축소해서 작성한게 Mapper
 * */
 
 @Repository
 public interface KHTUserRepository extends JpaRepository<KHTUser, Long> {
+
     KHTUser findByUsername(String username);
+
     KHTUser findById(int id);
 
 

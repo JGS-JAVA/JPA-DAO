@@ -1,6 +1,6 @@
 package edu.kh.com.jpadao.service;
 
-import edu.kh.com.jpadao.dao.KHTProduct;
+import edu.kh.com.jpadao.entity.KHTProduct;
 import edu.kh.com.jpadao.repository.KHTProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,10 @@ public class KHTProductService {
 
     public KHTProduct save(KHTProduct khtProduct) {
         return khtProductRepository.save(khtProduct);
+    }
+
+    public KHTProduct findById(int id) {
+        return khtProductRepository.findById(id);
     }
 
 }

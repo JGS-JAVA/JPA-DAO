@@ -67,7 +67,9 @@
                 productList.empty();
                 $.each(data, function (index, product) {
                     productList.append(
-                        '<li>' + product.name + '</li>'
+                        `
+                        <li> <a> ${product.name} </a> </li>
+                        `
                     )
                 })
             },
@@ -94,11 +96,19 @@
 </form>
 
 <script>
-    $('#saveProductButton').click(function () {
+    $('#saveProductButton').click(function (e) {
+        e.preventDefault();
         let name = $('#name').val();
         let price = $('#price').val();
         let description = $('#description').val();
         let stock = $('#stock').val();
+
+        if(!name || !price || !description || !stock){
+            alert("모든필드 입력하기");
+            return;
+        }
+
+
         $.ajax({
             url: '/api/saveProduct',
             method: 'POST',

@@ -90,7 +90,8 @@
             success: function (data) {
                 $.each(data, function (index, item) {
                     $("#userList").append(
-                        '<li>' + item.username + '</li>'
+                        // ?id= ${  item.id} 상세페이지에 유저번호를 주소값 뒤에 작성
+                       ` <li><a href="/user?id= ${  item.id}"> ${item.username} </a></li>`
                     )
                 })
             },
@@ -112,10 +113,13 @@
 </form>
 <script>
     $('#userForm').submit(function (e) {
-        e.preventDefault();
+        e.preventDefault();  // 정규식 일치여부, 빈칸여부 확인
 
         const username = $('#username').val();
         const password = $('#password').val();
+        const usernameRegex = /^[a-zA-Z0-9]{5,15}$/;
+        const passwordRegex = /^(?=.[A-Za-z])(?=.\\d)[A-Za-z\\d]{8,}$/;
+
         $.ajax({
             url: "/api/saveUser",
             method: 'POST',

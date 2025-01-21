@@ -1,4 +1,4 @@
-package edu.kh.com.jpadao.dao;
+package edu.kh.com.jpadao.entity;
 
 
 import jakarta.persistence.*;
