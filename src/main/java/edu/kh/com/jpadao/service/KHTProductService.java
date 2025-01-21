@@ -16,8 +16,8 @@ public class KHTProductService {
         return khtProductRepository.findAll();
     }
 
-    public KHTProduct save(KHTProduct khtProductid) {
-        return khtProductRepository.save(khtProductid);
+    public KHTProduct save(KHTProduct khtProduct) {
+        return khtProductRepository.save(khtProduct);
     }
 
 }
