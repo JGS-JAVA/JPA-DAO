@@ -45,9 +45,15 @@ public class ViewController {
         return "saveUser";
 
     }
-    @GetMapping("/user/add")
+    @GetMapping("/user/saveUserImage")
     public String saveUserImage() {
         return "saveUserImage";
 
     }
+
+    @GetMapping("/inputEmail")
+    public String inputEmail() {
+        return "inputEmail"; //
+    }
+
 }

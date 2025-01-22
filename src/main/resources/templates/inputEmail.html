@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이메일 인증하기</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>이메일 인증하기</h1>
+<input type="text" name="emailInput" id="emailInput" placeholder="인증할 이메일 입력">
+<button id="sendCodeBtn">인증번호 보내기</button>
+<script>
+    $('#sendCodeBtn').click(function () {
+        //  $('#emailInput').val(); // 사용자가 작성한 이메일 가져오기
+        let email = $('#emailInput').val().toLowerCase();
+        if (!email) {
+            alert("이메일 작성하기");
+            return;
+        }
+        $.ajax(
+            {
+                url: '/api/sendCode',
+                method: 'POST',
+                contentType:'application/json',
+                data: JSON.stringify({email: email}),
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            }
+        )
+
+    })
+</script>
+
+<input id="codeInput" placeholder="인증번호 입력" type="text">
+<button id="checkCodeBtn">인증번호 확인</button>
+<script>
+    $('#checkCodeBtn').clone(function () {
+        let email = $('#emailInput').val().toLowerCase();
+        let code = $('#codeInput').val();
+        console.log(email);
+        console.log(code);
+        $.ajax({
+            url: '/api/checkCode',
+            method: 'POST',
+            contentType: 'application/json',
+            data:JSON.stringify({email:email, code:code}),
+            success: function (data) {
+                alert(data)
+            },
+            error:function (error) {
+                alert(error)
+            }
+        })
+    })
+</script>
+</body>
+</html>

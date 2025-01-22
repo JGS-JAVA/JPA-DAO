@@ -1,4 +1,4 @@
-package edu.kh.com.jpadao.entity;
+package edu.kh.com.jpadao.model.entity;
 
 
 import jakarta.persistence.*;

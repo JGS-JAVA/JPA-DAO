@@ -1,6 +1,6 @@
 package edu.kh.com.jpadao.repository;
 
-import edu.kh.com.jpadao.entity.KHTUser;
+import edu.kh.com.jpadao.model.entity.KHTUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
