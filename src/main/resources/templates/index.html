@@ -108,6 +108,8 @@
     <input type="text" id="username" name="username">
     <label for="password">비밀번호: </label>
     <input type="text" id="password" name="password">
+    <label for="imagePath">프로필이미지: </label>
+    <input type="file" id="imagePath" name="imagePath">
     <button>등록</button>
 
 </form>
@@ -145,6 +147,32 @@
         })
     })
 </script>
+<script>
+    $('#userForm').submit(function () {
+       let formData = new FormData();
+        formData.append("file",$('#imagePath')[0].files[0]);
+
+
+        $.ajax({
+            url: "/api/saveUserImage",
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            data: formData ,
+            success:
+                function () {
+                    alert("유저사진등록 성공");
+                    window.location.href = "/users";
+                },
+            error:
+                function () {
+                    alert("유저사진등록 실패");
+                }
+
+        })
+    })
+</script>
+
 
 </body>
 </html>

@@ -21,6 +21,9 @@
     <label for="genre">책 설명 : </label>
     <input id="genre" placeholder="저자 입력" type="text">
 
+    <label for="imagePath">이미지 선택 : </label>
+    <input id="imagePath" type="file" required>
+
     <button id="saveBook" type="button">책 저장</button>
 </div>
 
@@ -30,29 +33,32 @@
         let title = $('#tilte').val();
         let author = $('#author').val();
         let genre = $('#genre').val();
+        let formData = new FormData();
+
+        formData.append("title",title);
+        formData.append("author",author);
+        formData.append("genre",genre);
+        formData.append("file",$('#imagePath')[0].files[0]);
 
 
         $.ajax({
-            url: '/api/bookSave',
+            url: '/api/bookSaveImg',
             method: 'POST',
-            contentType: "application/json", //자바 추천형식으로 사용 OK 'application/x-www-form-urlencoded;charset=UTF-8'
-            data:
-                    JSON.stringify({
-                    title: title,
-                    author: author,
-                    genre: genre
+            processData: false,
 
-                })
-            ,
+            contentType: false, //자바 추천형식으로 사용 OK 'application/x-www-form-urlencoded;charset=UTF-8'
+            data: formData,
+
+
             success: function () {
                 alert("책이 등록되었습니다.");
                 // 화면이동 위치 주소
-             window.location.href="/books";
-             // 화면이동 안할땐 창 비우기
-             //    getBookList();
-             //    $("#title").val('');
-             //    $("#author").val('');
-             //    $("#genre").val('');
+                window.location.href = "/books";
+                // 화면이동 안할땐 창 비우기
+                //    getBookList();
+                //    $("#title").val('');
+                //    $("#author").val('');
+                //    $("#genre").val('');
 
             },
             error: function () {

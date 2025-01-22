@@ -21,4 +21,7 @@ public class KHTBook {
     private String author;
     @Column(nullable = false)
     private String genre;
+    @Column(nullable = true) // 트루가 기본값
+    private String imagePath; // 책 표지 사진 경로추가
+
 }

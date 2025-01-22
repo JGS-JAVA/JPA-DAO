@@ -40,4 +40,14 @@ public class ViewController {
         return "newBooks";
 
     }
+    @GetMapping("/user/add")
+    public String saveUser() {
+        return "saveUser";
+
+    }
+    @GetMapping("/user/add")
+    public String saveUserImage() {
+        return "saveUserImage";
+
+    }
 }

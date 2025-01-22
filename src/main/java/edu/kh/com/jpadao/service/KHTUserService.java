@@ -3,6 +3,7 @@ package edu.kh.com.jpadao.service;
 import edu.kh.com.jpadao.entity.KHTUser;
 import edu.kh.com.jpadao.repository.KHTUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ import java.util.List;
 public class KHTUserService {
     @Autowired
     private KHTUserRepository khtUserRepository;
+
+    @Value("${upload-img}") //application.properties 에 작성한 이미지 경로 가져옴
+    private String uploadImg; //가져온 경로는 uploadImg 공간 안에 담아줌
 
 
     public List<KHTUser> findAll() {

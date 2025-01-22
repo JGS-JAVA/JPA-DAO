@@ -9,6 +9,7 @@ import edu.kh.com.jpadao.service.KHTProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,6 +36,11 @@ public class ApiController {
     @PostMapping("/saveUser") //    /api/saveUser
     public KHTUser saveUser(@RequestBody KHTUser khtUser) {
         return khtUserService.save(khtUser);
+    }
+
+    @PostMapping("/saveUserImage") //
+    public KHTUser saveUserImage(@RequestParam("file") MultipartFile file) {
+        return khtUserService.save(file);
     }
 
     // 모든 제품 조회   /api/products
@@ -92,8 +98,24 @@ public class ApiController {
         return khtBookService.findById(id);
     }
 
-    @GetMapping("/bookSave")
+    /* 기본 글자 타입만 한 번에 저장하기
+     * 405 (Method Not Allowed) GET 으로는 DB 저장 X
+     * Request method 'POST' is not supported
+     * @param khtBook = Body = 통째로 바디 내 세부 설정없이 한 번에 가져온 그대로 전달
+     * @return        = 저장역할을 하는 save로 데이터 그대로 전달
+
+    @PostMapping("/bookSave")
     public KHTBook saveBook(@RequestBody KHTBook khtBook) {
-        return khtBookService.save(khtBook);
+        KHTBook savedBook = khtBookService.save(khtBook);
+        log.info(savedBook.toString());
+        return savedBook;
+    }
+     */
+    @PostMapping("/bookSaveImg")
+    public KHTBook saveBookImg(@RequestParam("title") String title,
+                               @RequestParam("author") String author,
+                               @RequestParam("genre") String genre,
+                               @RequestParam("file") MultipartFile file) {
+        return khtBookService.save(title, author,genre,file);
     }
 }
