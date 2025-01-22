@@ -9,9 +9,22 @@
 </head>
 <body>
 <h1>이메일 인증하기</h1>
-<input type="text" name="emailInput" id="emailInput" placeholder="인증할 이메일 입력">
-<button id="sendCodeBtn">인증번호 보내기</button>
+<input type="text" name="emailInput" id="emailInput" placeholder="인증할 이메일 입력" >
+<button id="sendCodeBtn" >인증번호 보내기</button>
+
+<input id="codeInput" placeholder="인증번호 입력" type="text" disabled>
+<button id="checkCodeBtn" disabled>인증번호 확인</button>
 <script>
+    let isVerified = false;
+    // 이메일 변경시 인증상태 초기화
+    $('#emailInput').on("input",function () {
+        // 인증번호 입력창 초기화/비활성화
+        $('#codeInput').val("").prop("disabled",true);
+        // 인증번호 확인버튼 초기화/비활성화
+        $('#codeInput').prop("disabled",true);
+        isVerified = false;
+    })
+
     $('#sendCodeBtn').click(function () {
         //  $('#emailInput').val(); // 사용자가 작성한 이메일 가져오기
         let email = $('#emailInput').val().toLowerCase();
@@ -26,20 +39,19 @@
                 contentType:'application/json',
                 data: JSON.stringify({email: email}),
                 success: function (data) {
-                    alert(data);
+                    alert("인증번호 전송됨");
+                $('#emailInput').prop("disabled",true);
+                $('#sendCodeBtn').prop("disabled",true);
+
                 },
                 error: function (error) {
-                    alert(error);
+                    alert("인증번호 전송실패");
                 }
             }
         )
 
     })
-</script>
 
-<input id="codeInput" placeholder="인증번호 입력" type="text">
-<button id="checkCodeBtn">인증번호 확인</button>
-<script>
     $('#checkCodeBtn').clone(function () {
         let email = $('#emailInput').val().toLowerCase();
         let code = $('#codeInput').val();
@@ -51,10 +63,14 @@
             contentType: 'application/json',
             data:JSON.stringify({email:email, code:code}),
             success: function (data) {
-                alert(data)
+                alert("인증 성공")
+                $('#codeInput').prop("disabled",true); // 인증번호 입력창 비활성화
+                $('#checkCodeBtn').prop("disabled",true); // 인증번호 확인버튼 비활성화
+                isVerified = true; // 인증 완료상태
+
             },
             error:function (error) {
-                alert(error)
+                alert("인증 실패")
             }
         })
     })
