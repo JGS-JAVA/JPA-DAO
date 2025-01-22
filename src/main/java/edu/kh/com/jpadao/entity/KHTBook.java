@@ -16,11 +16,9 @@ public class KHTBook {
     private int id;
 
     @Column(nullable = false)
-    private String title;
+    private String title; // @Column 안쓰면 기본값 (널 허용, 유니크 안함)
     @Column(nullable = false)
     private String author;
-    @Column(nullable = false)
-    private String publisher;
     @Column(nullable = false)
     private String genre;
 }

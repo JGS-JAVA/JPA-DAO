@@ -14,104 +14,86 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api") // 앞에 적는 공통 주소
+@RequestMapping("/api") //맨 앞에 공통으로 들어갈 url api 명칭 작성
 public class ApiController {
-
     @Autowired
     private KHTUserService khtUserService;
+    @Autowired
+    private KHTProductService khtProductService;
+    @Autowired
+    private KHTBookService khtBookService;
 
-    @GetMapping("/users") //  /api/users
-
+    // ajax url 을 이용해서 DB에 저장된 DB 불러오기
+    @GetMapping("/users")//    /api/users
     public List<KHTUser> findAll() {
         List<KHTUser> users = khtUserService.findAll();
         log.info(users.toString());
         return users;
     }
 
-    @PostMapping("/saveUser")
+    // ajax url을 이용해서 DB에 회원 저장하기
+    @PostMapping("/saveUser") //    /api/saveUser
     public KHTUser saveUser(@RequestBody KHTUser khtUser) {
         return khtUserService.save(khtUser);
     }
 
-
-    @GetMapping("/user/{id}")
-    public KHTUser findById(@PathVariable("id") int id) {
-        KHTUser khtUser = khtUserService.findById(id);
-        log.info(khtUser.toString());
-        return khtUserService.findById(id); // html에 전달
-    }
-
-    @Autowired
-    private KHTProductService khtProductService;
-
-    @GetMapping("/products")
+    // 모든 제품 조회   /api/products
+    @GetMapping("/products") //    /api/products
     public List<KHTProduct> findAllProducts() {
         List<KHTProduct> products = khtProductService.findAll();
         log.info(products.toString());
         return products;
+
+        //    return khtProductService.findAll();
     }
 
-
-    @PostMapping("/saveProduct")
+    // 제품 등록 /api/saveProduct
+    @PostMapping("/saveProduct") //    /api/saveProduct
     public KHTProduct saveProduct(@RequestBody KHTProduct khtProduct) {
-        KHTProduct savedProduct = khtProductService.save(khtProduct);
+        KHTProduct  savedProduct = khtProductService.save(khtProduct);
         log.info(savedProduct.toString());
         return savedProduct;
-
+        // return khtProductService.save(khtProduct);
     }
 
-    
-    /* @param id 는 @RequestParam 으로 전달받은 id 값을
-    // URLSearchParams = url 주소에서 파라미터들을 검색해서 
-    // urlParams 란 변수명에 ? 뒤에 오는 키=값 모두 담기
-    // urlParams 에서 원하는 키의 값을 가져온다
-    // id 란 변수명에 키에 해당한 값 저장
-    // const urlParams = new URLSearchParams(window.location.search);
-    /    const id = urlParams.get('id');
-
+    /**
+     *
+     * @RequestParam 으로 전달받은 값을
+     * URLSearchParams = URL 주소에서 parameters(파라미터들)을 search 검색해서
+     * urlParams 라는 변수 이름에 ? 뒤에 오는 키=값 을 모두 담아둠
+     * urlParams에서 원하는 키의 값을 get 해서 가져옴
+     * id라는 변수 이름에 키에 해당하는 값을 저장
+     *
+     * const urlParams = new URLSearchParams(window.location.search);
+     * const id = urlParams.get('id');
+     * @param id  는    get('id' 로 가져온 값을 활용해서 ajax로 db에서 id값에 해당하는 데이터를 가져오기
+     * @return
      */
+    @GetMapping("/user/{id}")
+    public KHTUser findById(@PathVariable("id") int id) {
+        KHTUser khtUser = khtUserService.findById(id);
+        log.info(khtUser.toString());
+        return khtUserService.findById(id); // 가져온 데이터가 있든 없든 html에 전달
+    }
 
-    @GetMapping("/products/{productId}")
+    @GetMapping("/products/{id}")
     public KHTProduct findByIdProduct(@PathVariable("id") int id) {
         KHTProduct khtProduct = khtProductService.findById(id);
         log.info(khtProduct.toString());
-       return khtProductService.findById(id); // html에 전달
-    }
-
-    @Autowired
-    private KHTBookService khtBookService;
-
-    @GetMapping("/books/{bookId}")
-    public KHTBook findByIdBook(@PathVariable("id") int id) {
-        KHTBook khtBook = khtBookService.findById(id);
-        log.info(khtBook.toString());
-       return khtBookService.findById(id); // html에 전달
+        return khtProduct;
     }
     @GetMapping("/books")
-    public List<KHTBook> findAllProducts() {
-        List<KHTProduct> products = khtProductService.findAll();
-        log.info(products.toString());
-        return products;
-    }
-    @PostMapping("/saveBook")
-    public KHTBook saveProduct(@RequestBody KHTProduct khtProduct) {
-        KHTProduct savedProduct = khtProductService.save(khtProduct);
-        log.info(savedProduct.toString());
-        return savedProduct;
-
+    public List<KHTBook> books() {
+        return khtBookService.findAll();
     }
 
-
-    @GetMapping("/books")
-    public apiBooks(){
-
+    @GetMapping("/book/{id}")  //id 조회
+    public KHTBook book(@PathVariable("id") int id) {
+        return khtBookService.findById(id);
     }
-    @GetMapping("/book")
-    public apiBook(){
 
-    }
     @GetMapping("/bookSave")
-    public apisaveBook(){
-
+    public KHTBook saveBook(@RequestBody KHTBook khtBook) {
+        return khtBookService.save(khtBook);
     }
 }

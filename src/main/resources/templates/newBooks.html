@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 등록</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>책 등록</h1>
+
+<div id="book">
+    <label for="title">책명칭 : </label>
+    <input id="title" placeholder="책제목 임력" type="text" required>
+
+    <label for="author">책가격</label>
+    <input id="author" placeholder="저자 입력" type="text">
+
+    <label for="genre">책 설명 : </label>
+    <input id="genre" placeholder="저자 입력" type="text">
+
+    <button id="saveBook" type="button">책 저장</button>
+</div>
+
+<script>
+    $('#saveBook').click(function () {
+
+        let title = $('#tilte').val();
+        let author = $('#author').val();
+        let genre = $('#genre').val();
+
+
+        $.ajax({
+            url: '/api/bookSave',
+            method: 'POST',
+            contentType: "application/json", //자바 추천형식으로 사용 OK 'application/x-www-form-urlencoded;charset=UTF-8'
+            data:
+                    JSON.stringify({
+                    title: title,
+                    author: author,
+                    genre: genre
+
+                })
+            ,
+            success: function () {
+                alert("책이 등록되었습니다.");
+                // 화면이동 위치 주소
+             window.location.href="/books";
+             // 화면이동 안할땐 창 비우기
+             //    getBookList();
+             //    $("#title").val('');
+             //    $("#author").val('');
+             //    $("#genre").val('');
+
+            },
+            error: function () {
+                alert("책 등록에 실패하였습니다.");
+            }
+        })
+    })
+</script>
+
+
+</body>
+</html>

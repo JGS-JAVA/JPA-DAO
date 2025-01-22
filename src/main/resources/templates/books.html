@@ -3,40 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>책 조회</title>
+    <title>책 목록 조회</title>
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<h1>책 조회</h1>
+<h1>책 목록 조회</h1>
 <ul id="bookList"></ul>
+<TABLE class="books-table">
+    <thead>
+    <tr >
+        <th>ID</th>
+        <th>제목</th>
+        <th>저자</th>
+        <th>장르</th>
+        <th>이동하기</th>
+    </tr>
+    </thead>
+    <tbody id="books">
+
+    </tbody>
+</TABLE>
 <script>
 
-  function getBookList() {
-    let bookList = $('#bookList');
-    $.ajax({
-      url: '/api/books',
-      method: 'GET',
-      success: function (data) {
-        bookList.empty();
-        $.each(data, function (index, book) {
-          bookList.append(
-                  `
-                        <li> <a> ${book.name} </a> </li>
+    function getBookList() {
+        let bookList = $('#bookList');
+        $.ajax({
+            url: '/api/books',
+            method: 'GET',
+            success: function (data) {
+                bookList.empty();
+                $.each(data, function (index, book) {
+                    $("#books").append(
                         `
-          )
+<tr>
+                        <th>  ${book.id}  </th>
+                        <th>  ${book.title}  </th>
+                        <th>  ${book.author}  </th>
+                        <th>  ${book.genre}  </th>
+                        <th><a href="/book?id=${book.id}">이동</a></th>
+</tr>
+                        `
+                    )
+                })
+            },
+            error: function () {
+                bookList.html('<p>컨트롤러에서 데이터를 가져오는데 문제가 생겼습니다</p>');
+            }
         })
-      },
-      error: function () {
-        bookList.html('<p>컨트롤러에서 데이터를 가져오는데 문제가 생겼습니다</p>');
-      }
-    })
-  }
+    }
 
-  getBookList();
+    getBookList();
 </script>
-
 
 
 </body>

@@ -29,15 +29,15 @@ public class ViewController {
 
     @GetMapping("/books")
     public String getBooks() {
-        return "book";
+        return "bookDetail";
     }
     @GetMapping("/book")
-    public String getBookById() {
-        return "book";
+    public String getBookById(@RequestParam("id") int id) {
+        return "bookDetail";
     }
     @GetMapping("/book/add")
     public String saveBook() {
-        return "bookSave";
+        return "newBooks";
 
     }
 }
