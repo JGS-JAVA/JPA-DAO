@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JpaDaoApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(JpaDaoApplication.class, args);
     }
 

@@ -13,14 +13,17 @@ public class KHTProductService {
     private KHTProductRepository khtProductRepository;
 
     public List<KHTProduct> findAll() {
+
         return khtProductRepository.findAll();
     }
 
     public KHTProduct save(KHTProduct khtProduct) {
+
         return khtProductRepository.save(khtProduct);
     }
 
     public KHTProduct findById(int id) {
+
         return khtProductRepository.findById(id);
     }
 
