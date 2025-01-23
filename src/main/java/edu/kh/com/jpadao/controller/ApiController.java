@@ -85,7 +85,7 @@ public class ApiController {
     public KHTUser findById(@PathVariable("id") int id) {
         KHTUser khtUser = khtUserService.findById(id);
         log.info(khtUser.toString());
-        return khtUserService.findById(id); // 가져온 데이터가 있든 없든 html에 전달
+        return khtUser; // 가져온 데이터가 있든 없든 html에 전달
     }
 
     @GetMapping("/products/{id}")
